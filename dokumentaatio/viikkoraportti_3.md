@@ -27,6 +27,8 @@ siitä ei vaadi välttämättä edes ymmärrystä algoritmin toiminnasta. Kaikkein pahi
 toteuttaman valmiin koodin näkeminen, joka on hyvin opettavaista mutta samalla on menettänyt mahdollisuuden
 ratkaista pulman täysin omin keinoin. On vaikea oikeuttaa itselleen mitään näistä tasoista. 
 
+Mavenin käyttö Windowsilla on myös ongelma. En osaa tehdä mutaatiotestejä. Lienee paikallaan kysyä neuvoa esim. pajassa.
+
 
 
 Mitä teen seuraavaksi?
