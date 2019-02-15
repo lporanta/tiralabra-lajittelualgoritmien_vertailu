@@ -1,0 +1,1 @@
+Ei havaittavia muutoksia ohjelmassa tähän deadlineen muiden kiireiden johdosta.
