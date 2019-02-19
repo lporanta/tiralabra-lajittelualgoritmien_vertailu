@@ -1,24 +1,36 @@
 package lajittelualgoritmien_vertailu;
 
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import tkt.lajittelualgoritmien_vertailu.Countingsort;
 import tkt.lajittelualgoritmien_vertailu.Heapsort;
 import tkt.lajittelualgoritmien_vertailu.Insertionsort;
 import tkt.lajittelualgoritmien_vertailu.Introsort;
-import tkt.lajittelualgoritmien_vertailu.Main;
 import tkt.lajittelualgoritmien_vertailu.Quicksort;
+import tkt.lajittelualgoritmien_vertailu.TimsortOf;
 
 /**
- *
- * @author Lauri
+ * Testit
+ * 
+ * Jokaisen testin alussa luodaan arpomalla taulukko, jonka pituus on
+ * TEST_ARRAY_SIZE ja arvojen vaihteluväli on TEST_ARRAY_RANDOM_RANGE.
+ * 
+ * Luotu taulukko kopioidaan ja annetaan järjestettäväksi Javan omalle
+ * järjestysalgoritmille ja itse tehdylle algoritmille.
+ * 
+ * Jos taulukot ovat identtiset, algoritmi toimii.
+ * 
  */
 public class lajitteluTest {
+    final static int TEST_ARRAY_SIZE = Integer.MAX_VALUE / 10000;
+    final static int TEST_ARRAY_RANDOM_RANGE = 10000000;
+    int[] a;
+    int[] b;
 
     @BeforeClass
     public static void setUpClass() {
@@ -30,6 +42,11 @@ public class lajitteluTest {
 
     @Before
     public void setUp() {
+        a = new int[TEST_ARRAY_SIZE];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = (int) (((Math.random()-0.5) * TEST_ARRAY_RANDOM_RANGE));
+        }
+        b = Arrays.copyOf(a, a.length);
     }
 
     @After
@@ -38,44 +55,44 @@ public class lajitteluTest {
 
     @Test
     public void countingSortKaantaaOikein() {
-        int[] b = {5, 4, 3, 2, 1};
-        Countingsort.sort(b);
-        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5}, b);
-    }
-
-    @Test
-    public void countingSortIsoLuku() {
-        int[] b = {39999999, 4, 3, 2, 1, 1};
-        Countingsort.sort(b);
-        Assert.assertArrayEquals(new int[]{1, 1, 2, 3, 4, 39999999}, b);
+        Countingsort.sort(a);
+        Arrays.sort(b);
+        Assert.assertArrayEquals(a, b);
     }
 
     @Test
     public void insertionSortKaantaaOikein() {
-        int[] b = {5, 4, 3, 2, 1, 10, 9, 8, 7, 6};
-        Insertionsort.sort(b);
-        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, b);
+        Insertionsort.sort(a);
+        Arrays.sort(b);
+        Assert.assertArrayEquals(a, b);
     }
 
     @Test
     public void quickSortKaantaaOikein() {
-        int[] b = {5, 4, 3, 2, 1, 1, 1, 10, 9, 8, 8, 7, 6};
-        Quicksort.sort(b);
-        Assert.assertArrayEquals(new int[]{1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10}, b);
+        Quicksort.sort(a);
+        Arrays.sort(b);
+        Assert.assertArrayEquals(a, b);
     }
     
     @Test
     public void heapSortKaantaaOikein() {
-        int[] b = {5, 4, 3, 2, 1, 1, 1, 10, 9, 8, 8, 7, 6};
-        Heapsort.sort(b);
-        Assert.assertArrayEquals(new int[]{1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10}, b);
+        Heapsort.sort(a);
+        Arrays.sort(b);
+        Assert.assertArrayEquals(a, b);
     }
 
     @Test
     public void introSortKaantaaOikein() {
-        int[] b = {5, 4, 3, 2, 1, 1, 1, 10, 9, 8, 8, 7, 6};
-        Introsort.sort(b);
-        Assert.assertArrayEquals(new int[]{1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10}, b);
+        Introsort.sort(a);
+        Arrays.sort(b);
+        Assert.assertArrayEquals(a, b);
+    }
+    
+    @Test
+    public void timSortKaantaaOikein() {
+        TimsortOf.sort(a);
+        Arrays.sort(b);
+        Assert.assertArrayEquals(a, b);
     }
 
 }

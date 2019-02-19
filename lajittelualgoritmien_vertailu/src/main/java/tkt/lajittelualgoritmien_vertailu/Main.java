@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Main {
 
-    final static int TEST_ARRAY_SIZE = Integer.MAX_VALUE / 100000;
-    final static int TEST_ARRAY_RANDOM_RANGE = 1000000000;
+    final static int TEST_ARRAY_SIZE = Integer.MAX_VALUE / 1000;
+    final static int TEST_ARRAY_RANDOM_RANGE = 30000000;
     final static int ITERATIONS = 1;
 
     /*---- Main ----*/

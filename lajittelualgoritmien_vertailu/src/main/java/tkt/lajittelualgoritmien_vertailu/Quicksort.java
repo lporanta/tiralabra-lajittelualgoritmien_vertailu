@@ -26,7 +26,7 @@ public class Quicksort {
             }
         }
     }
-    
+
     static int partition(int[] arr, int left, int right) {
         int low = left - 1;
         int high = right + 1;

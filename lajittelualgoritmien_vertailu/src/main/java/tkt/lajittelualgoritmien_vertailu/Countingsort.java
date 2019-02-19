@@ -2,31 +2,63 @@ package tkt.lajittelualgoritmien_vertailu;
 
 /**
  * Laskemisjärjestäminen
+ *
+ *
+ * Toimii myös negatiivisilla luvuilla. 
+ *
  */
 public class Countingsort {
 
-    final static int ARRAY_SIZE = 40000000;
-
     public static void sort(int[] arr) {
-        int[] a = new int[ARRAY_SIZE];
-        int j = 0;
-        int max = 0;
+        int min = arr[0];
+        int max = arr[0];
+        int mapping_plus[];
+        int mapping_minus[];
+        int output[] = new int[arr.length + 1];
 
         for (int i : arr) {
-            if (i > max) {
+            if (i < min) {
+                min = i;
+            } else if (i > max) {
                 max = i;
             }
-            a[i]++;
         }
 
-        for (int i = 0; i <= max; i++) {
-            int count = a[i];
-            if (count > 0) {
-                for (int k = 0; k < count; k++) {
-                    arr[j] = i;
-                    j++;
-                }
+        if (min < 0) {
+            min = -min;
+        }
+
+        mapping_plus = new int[max + 1];
+        mapping_minus = new int[min + 1];
+
+        for (int i : arr) {
+            if (i >= 0) {
+                mapping_plus[i]++;
+            } else {
+                mapping_minus[-i]++;
             }
+        }
+
+        for (int i = min - 1; i >= 0; i--) {
+            mapping_minus[i] += mapping_minus[i + 1];
+        }
+        for (int i = 1; i <= max; i++) {
+            mapping_plus[i] += mapping_plus[i - 1];
+        }
+        for (int i = 0; i <= max; i++) {
+            mapping_plus[i] += mapping_minus[0];
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] >= 0) {
+                output[mapping_plus[arr[i]]] = arr[i];
+                mapping_plus[arr[i]]--;
+            } else {
+                output[mapping_minus[-arr[i]]] = arr[i];
+                mapping_minus[-arr[i]]--;
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = output[i + 1];
         }
     }
 }

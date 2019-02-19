@@ -5,9 +5,6 @@ package tkt.lajittelualgoritmien_vertailu;
  */
 public class Heapsort {
 
-    // En saanut omaa heapsorttia toimimaan määritellyllä alueella, joten
-    // tässä on huomattavasti plagioitua koodia introsortin toimintaa varten.
-    // TODO uudestaan mahd. tai oman toteutuksen muokkausta vielä.
     public static void sort(int[] arr) {
         sort(arr, 0, arr.length);
     }
