@@ -1,7 +1,7 @@
 package tkt.lajittelualgoritmien_vertailu;
 
 /**
- * Natural merge sort, kehitteillä, hitaalla käy
+ * Hidas Timsort ilman laukkaominaisuutta mergessä
  */
 public class TimsortOf {
 
@@ -38,7 +38,6 @@ public class TimsortOf {
                 run.increment();
             }
         }
-
         return returnArray;
     }
 
@@ -85,15 +84,12 @@ public class TimsortOf {
             }
             runs.check();
         }
-        
+
         while (!runs.isEmpty()) {
             tempArray = merge(tempArray, runs.pop());
         }
-
         System.arraycopy(tempArray, 0, arr, 0, tempArray.length);
-
     }
-
 }
 
 class Run {
@@ -109,45 +105,45 @@ class Run {
     int minrun;
 
     Run(int MAX_LENGTH, int MINRUN) {
-        array = new int[MAX_LENGTH];
-        desc = false;
-        empty = true;
-        index = 0;
-        increment = 1;
-        minrun = MINRUN;
+        this.array = new int[MAX_LENGTH];
+        this.desc = false;
+        this.empty = true;
+        this.index = 0;
+        this.increment = 1;
+        this.minrun = MINRUN;
     }
 
     void sort() {
-        Insertionsort.sort(array, 0, index - 1);
-        desc = false;
-        increment = 1;
+        Insertionsort.sort(this.array, 0, this.index - 1);
+        this.desc = false;
+        this.increment = 1;
     }
 
     boolean canAdd(int NUMBER) {
 
-        if (needsSort) {
-            return (index < minrun);
+        if (this.needsSort) {
+            return (this.index < this.minrun);
         }
         // Jos run on tyhjä tai siinä on vain yksi luku, voi lisätä
-        if (index == 0 || index == 1) {
+        if (this.index == 0 || this.index == 1) {
             return true;
         } // Jos run ei ole täynnä
-        else if (index != array.length) {
+        else if (this.index != this.array.length) {
             // Jos run on laskeva, onko numero aidosti pienempi
             boolean tempNeedsSort;
-            if (desc) {
-                if (previous() > NUMBER) {
+            if (this.desc) {
+                if (this.previous() > NUMBER) {
                     return true;
                 } else {
-                    needsSort = true;
+                    this.needsSort = true;
                     return true;
                 }
             } // Jos run on nouseva, onko numero yhtä suuri tai suurempi
             else {
-                if (previous() <= NUMBER) {
+                if (this.previous() <= NUMBER) {
                     return true;
                 } else {
-                    needsSort = true;
+                    this.needsSort = true;
                     return true;
                 }
             }
@@ -160,64 +156,62 @@ class Run {
         // Jos lisättävä numero on runin toinen numero
         // ja jos ensimmäinen alkio on aidosti suurempi kuin lisättävä
         // niin run on laskeva
-        if (index == 1 && (previous() > NUMBER)) {
-            descending();
+        if (this.index == 1 && (this.previous() > NUMBER)) {
+            this.descending();
         }
 
-        empty = false;
-        array[index] = NUMBER;
-        index++;
-        size++;
+        this.empty = false;
+        this.array[this.index] = NUMBER;
+        this.index++;
+        this.size++;
     }
 
     void descending() {
-        desc = true;
-        increment = -1;
+        this.desc = true;
+        this.increment = -1;
     }
 
     void done() {
-        if (needsSort) {
-            sort();
+        if (this.needsSort) {
+            this.sort();
         }
-
-        if (desc) {
-            index--;
-            end = 0;
+        if (this.desc) {
+            this.index--;
+            this.end = 0;
         } else {
-            end = index - 1;
-            index = 0;
+            this.end = this.index - 1;
+            this.index = 0;
         }
     }
 
     void resize(int newSize) {
-        end = size;
-        size = newSize;
-        empty = false;
-
+        this.end = this.size;
+        this.size = newSize;
+        this.empty = false;
     }
 
     int size() {
-        return size;
+        return this.size;
     }
 
     boolean isEmpty() {
-        return empty;
+        return this.empty;
     }
 
     void increment() {
-        size--;
-        index += increment;
-        if (size == 0) {
-            empty = true;
+        this.size--;
+        this.index += this.increment;
+        if (this.size == 0) {
+            this.empty = true;
         }
     }
 
     int previous() {
-        return array[index - 1];
+        return this.array[this.index - 1];
     }
 
     int peekFirst() {
-        return array[index];
+        return this.array[this.index];
     }
 }
 
@@ -227,51 +221,49 @@ class Stack {
     int index;
 
     Stack() {
-        array = new Run[10000000];
-        index = 0;
+        this.array = new Run[10000000];
+        this.index = 0;
     }
 
     Run peek() {
-        return array[index-1];
+        return this.array[this.index - 1];
     }
 
     boolean isEmpty() {
-        return (index == 0);
+        return (this.index == 0);
     }
 
     void push(Run run) {
-        array[index] = run;
-        index++;
+        this.array[this.index] = run;
+        this.index++;
     }
 
     Run pop() {
-        index--;
-        return array[index];
+        this.index--;
+        return this.array[this.index];
     }
 
     int size() {
-        return index;
+        return this.index;
     }
 
     void check() {
-        while (index > 2) {
-            if (array[index - 3].size() > array[index - 1].size() + array[index - 2].size()) {
-                if (array[index - 1].size() > array[index - 2].size()) {
+        while (this.index > 2) {
+            if (this.array[this.index - 3].size() > this.array[this.index - 1].size() + this.array[this.index - 2].size()) {
+                if (this.array[this.index - 1].size() > this.array[this.index - 2].size()) {
                     push(TimsortOf.merge(pop(), pop()));
                 } else {
                     break;
                 }
             } else {
                 Run temp = pop();
-                if (array[index - 2].size() > temp.size()) {
+                if (this.array[this.index - 2].size() > temp.size()) {
                     push(TimsortOf.merge(pop(), temp));
                 } else {
                     push(TimsortOf.merge(pop(), pop()));
                     push(temp);
                 }
             }
-
         }
     }
-
 }

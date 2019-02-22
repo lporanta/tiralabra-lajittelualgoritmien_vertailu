@@ -1,5 +1,7 @@
 package tkt.lajittelualgoritmien_vertailu;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,6 +18,9 @@ public class Main {
         int[] a;
         int[][] b;
         long clockIn;
+
+        DecimalFormat df = new DecimalFormat("0.00");
+        df.setRoundingMode(RoundingMode.CEILING);
 
         System.out.println("Welcome!\nType EXIT to exit, press enter to continue or type array length and value range (separated by space)\n"
                 + "Maximum array length: " + ARRAY_MAX_SIZE + ", Maximum value range: " + ARRAY_MAX_RANGE + "\n");
@@ -69,40 +74,40 @@ public class Main {
                 b[j] = Arrays.copyOf(a, a.length);
             }
 
-            clockIn = System.currentTimeMillis();
+            clockIn = System.nanoTime();
             Arrays.sort(b[6]);
             System.out.println(
-                    "Arrays.sort: " + (System.currentTimeMillis() - clockIn) + " ms");
+                    "-Arrays.sort: " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
 
-            clockIn = System.currentTimeMillis();
+            clockIn = System.nanoTime();
             Countingsort.sort(b[4]);
             System.out.println(
-                    "Counting sort: " + (System.currentTimeMillis() - clockIn) + " ms");
+                    "-Counting sort: " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
 
-            clockIn = System.currentTimeMillis();
+            clockIn = System.nanoTime();
             Heapsort.sort(b[2]);
             System.out.println(
-                    "Heapsort: " + (System.currentTimeMillis() - clockIn) + " ms");
+                    "-Heapsort: " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
 
-            clockIn = System.currentTimeMillis();
+            clockIn = System.nanoTime();
             Insertionsort.sort(b[3]);
             System.out.println(
-                    "Insertion sort: " + (System.currentTimeMillis() - clockIn) + " ms");
+                    "-Insertion sort: " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
 
-            clockIn = System.currentTimeMillis();
+            clockIn = System.nanoTime();
             Introsort.sort(b[1]);
             System.out.println(
-                    "Introsort: " + (System.currentTimeMillis() - clockIn) + " ms");
+                    "-Introsort: " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
 
-            clockIn = System.currentTimeMillis();
+            clockIn = System.nanoTime();
             TimsortOf.sort(b[0]);
             System.out.println(
-                    "Timsort(ish): " + (System.currentTimeMillis() - clockIn) + " ms");
+                    "-Timsort(ish): " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
 
-            clockIn = System.currentTimeMillis();
+            clockIn = System.nanoTime();
             Quicksort.sort(b[5]);
             System.out.println(
-                    "Quicksort: " + (System.currentTimeMillis() - clockIn) + " ms");
+                    "-Quicksort: " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
             System.out.println("End reached (press enter to continue)\n");
             input = reader.nextLine();
             if (input.equals("EXIT")) {

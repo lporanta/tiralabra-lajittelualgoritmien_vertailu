@@ -5,3 +5,4 @@
 [Viikkoraportti 3](https://github.com/lporanta/tiralabra-lajittelualgoritmien_vertailu/blob/master/dokumentaatio/viikkoraportti_3.md)
 [Viikkoraportti 4](https://github.com/lporanta/tiralabra-lajittelualgoritmien_vertailu/blob/master/dokumentaatio/viikkoraportti_4.md)
 [Viikkoraportti 5](https://github.com/lporanta/tiralabra-lajittelualgoritmien_vertailu/blob/master/dokumentaatio/viikkoraportti_5.md)
+[Viikkoraportti 6](https://github.com/lporanta/tiralabra-lajittelualgoritmien_vertailu/blob/master/dokumentaatio/viikkoraportti_6.md)
