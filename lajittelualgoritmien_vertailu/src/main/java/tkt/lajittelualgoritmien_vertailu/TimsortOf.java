@@ -1,15 +1,13 @@
 package tkt.lajittelualgoritmien_vertailu;
 
-import java.util.ArrayList;
-
 /**
  * Natural merge sort, kehitteillä, hitaalla käy
  */
 public class TimsortOf {
 
-    final static int INSERTIONSORT_THRESHOLD = (int) Math.pow(2, 6);
-    final static int RUN_MAX_LENGTH = (int) Math.pow(2, 6);
-    final static int MINRUN = (int) Math.pow(2, 6);
+    final static int INSERTIONSORT_THRESHOLD = 64;
+    final static int RUN_MAX_LENGTH = 63;
+    final static int MINRUN = 63;
 
     public static void sort(int[] arr) {
         if (arr.length < INSERTIONSORT_THRESHOLD) {
@@ -44,7 +42,7 @@ public class TimsortOf {
         return returnArray;
     }
 
-    private static Run merge(Run run1, Run run2) {
+    public static Run merge(Run run1, Run run2) {
         int size = run1.size() + run2.size();
         Run returnRun = new Run(size, 0);
         returnRun.done();
@@ -69,40 +67,31 @@ public class TimsortOf {
 
     private static void timSort(int[] arr) {
         Run run = new Run(RUN_MAX_LENGTH, MINRUN);
-        ArrayList<Run> runs = new ArrayList<>();
+        Stack runs = new Stack();
         int[] tempArray = new int[0];
 
         for (int i = 0; i < arr.length; i++) {
-
-            if (runs.size() > 2) {
-                if (runs.get(0).size() + runs.get(1).size() >= runs.get(2).size()) {
-                    Run merged = merge(runs.get(0), runs.get(1));
-                    runs.remove(0);
-                    runs.remove(0);
-                    runs.add(0, merged);
-                }
-            }
-
             if (run.canAdd(arr[i])) {
                 run.add(arr[i]);
             } else {
                 run.done();
-                runs.add(run);
+                runs.push(run);
                 run = new Run(RUN_MAX_LENGTH, MINRUN);
                 run.add(arr[i]);
             }
             if (i == arr.length - 1) {
                 run.done();
-                runs.add(run);
+                runs.push(run);
             }
+            runs.check();
         }
-
+        
         while (!runs.isEmpty()) {
-            tempArray = merge(tempArray, runs.get(0));
-            runs.remove(runs.get(0));
+            tempArray = merge(tempArray, runs.pop());
         }
 
         System.arraycopy(tempArray, 0, arr, 0, tempArray.length);
+
     }
 
 }
@@ -230,4 +219,59 @@ class Run {
     int peekFirst() {
         return array[index];
     }
+}
+
+class Stack {
+
+    Run[] array;
+    int index;
+
+    Stack() {
+        array = new Run[10000000];
+        index = 0;
+    }
+
+    Run peek() {
+        return array[index-1];
+    }
+
+    boolean isEmpty() {
+        return (index == 0);
+    }
+
+    void push(Run run) {
+        array[index] = run;
+        index++;
+    }
+
+    Run pop() {
+        index--;
+        return array[index];
+    }
+
+    int size() {
+        return index;
+    }
+
+    void check() {
+        while (index > 2) {
+            if (array[index - 3].size() > array[index - 1].size() + array[index - 2].size()) {
+                if (array[index - 1].size() > array[index - 2].size()) {
+                    push(TimsortOf.merge(pop(), pop()));
+                } else {
+                    break;
+                }
+            } else {
+                Run temp = pop();
+                if (array[index - 2].size() > temp.size()) {
+                    push(TimsortOf.merge(pop(), temp));
+                } else {
+                    push(TimsortOf.merge(pop(), pop()));
+                    push(temp);
+                }
+            }
+
+        }
+    }
+
 }
