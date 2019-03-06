@@ -1,10 +1,9 @@
-package tkt.lajittelualgoritmien_vertailu;
+package tkt.algoritmit;
 
 /**
  * Introsort
  */
 public class Introsort {
-    // Täällä on jokin bugi.
     final static int MAXDEPTH_FACTOR = 2;
     final static int THRESHOLD = 32;
 

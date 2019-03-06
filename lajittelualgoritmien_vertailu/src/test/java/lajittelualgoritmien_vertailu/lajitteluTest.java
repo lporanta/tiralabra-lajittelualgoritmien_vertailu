@@ -7,12 +7,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import tkt.lajittelualgoritmien_vertailu.Countingsort;
-import tkt.lajittelualgoritmien_vertailu.Heapsort;
-import tkt.lajittelualgoritmien_vertailu.Insertionsort;
-import tkt.lajittelualgoritmien_vertailu.Introsort;
-import tkt.lajittelualgoritmien_vertailu.Quicksort;
-import tkt.lajittelualgoritmien_vertailu.TimsortOf;
+import tkt.algoritmit.Countingsort;
+import tkt.algoritmit.Heapsort;
+import tkt.algoritmit.Insertionsort;
+import tkt.algoritmit.Introsort;
+import tkt.algoritmit.Quicksort;
+import tkt.algoritmit.TimsortOf;
 
 /**
  * Testit
@@ -27,7 +27,7 @@ import tkt.lajittelualgoritmien_vertailu.TimsortOf;
  * 
  */
 public class lajitteluTest {
-    final static int TEST_ARRAY_SIZE = Integer.MAX_VALUE / 10000;
+    final static int TEST_ARRAY_SIZE = 100000;
     final static int TEST_ARRAY_RANDOM_RANGE = 10000000;
     int[] a;
     int[] b;

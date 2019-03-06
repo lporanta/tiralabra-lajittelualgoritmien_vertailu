@@ -25,18 +25,20 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.8</source>
-                    <targetClasses>
-                        <param>tkt.lajittelualgoritmien_vertailu*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <param>lajittelualgoritmien_vertailu*</param>
-                    </targetTests>
                     <target>1.8</target>
                 </configuration>
                 <version>3.3</version>
             </plugin>
             <plugin>
                 <groupId>org.pitest</groupId>
+                <configuration>
+                    <targetClasses>
+                        <param>tkt.lajittelualgoritmien_vertailu*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>lajittelualgoritmien_vertailu*</param>
+                    </targetTests>
+                </configuration>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.1.8</version>
             </plugin>

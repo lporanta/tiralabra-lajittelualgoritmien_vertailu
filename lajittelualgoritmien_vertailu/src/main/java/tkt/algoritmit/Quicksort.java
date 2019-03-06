@@ -1,4 +1,4 @@
-package tkt.lajittelualgoritmien_vertailu;
+package tkt.algoritmit;
 
 /**
  * Quicksort

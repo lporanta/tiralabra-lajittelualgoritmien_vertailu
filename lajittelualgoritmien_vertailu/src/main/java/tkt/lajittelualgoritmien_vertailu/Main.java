@@ -1,13 +1,18 @@
 package tkt.lajittelualgoritmien_vertailu;
 
+import tkt.algoritmit.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+/**
+ * Main-luokka, jossa on algoritmien vertailun toiminnallisuus
+ */
 public class Main {
 
-    private static Scanner reader = new Scanner(System.in);
+    private static final Scanner lukija = new Scanner(System.in);
     private static final int ARRAY_MAX_SIZE = 100000;
     private static final int ARRAY_MAX_RANGE = 10000000;
 
@@ -29,7 +34,7 @@ public class Main {
             System.out.print("NEW TEST\nArray length: " + TEST_ARRAY_SIZE
                     + "\nValue range: " + TEST_ARRAY_RANDOM_RANGE + "\nNew values: ");
 
-            String input = reader.nextLine();
+            String input = lukija.nextLine();
 
             if (input.equals("EXIT")) {
                 break;
@@ -109,7 +114,7 @@ public class Main {
             System.out.println(
                     "-Quicksort: " + df.format((System.nanoTime() - clockIn) / 1000000.0) + " ms");
             System.out.println("End reached (press enter to continue)\n");
-            input = reader.nextLine();
+            input = lukija.nextLine();
             if (input.equals("EXIT")) {
                 break;
             }
